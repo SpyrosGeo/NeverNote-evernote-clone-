@@ -13,15 +13,52 @@ class App extends React.Component {
       selectedNote:null,
       notes:null
     }
+    this.newNote = this.newNote.bind(this);
+    this.selectNote = this.selectNote.bind(this);
+    this.deleteNote = this.deleteNote.bind(this);
+    this.noteUpdate = this.noteUpdate.bind(this);
   }
+
+  newNote(){
+
+  }
+
+  selectNote(note,index){
+    this.setState({
+      selectedNoteIndex:index,
+      selectedNote:note
+    })
+  }
+
+  deleteNote(){
+
+  }
+
+  noteUpdate(id,noteObj){
+    console.log(id,noteObj);
+  }
+
+
   render(){
     return (
     <div className="app-container" >
     <SidebarComponent
      selectedNoteIndex = {this.state.selectedNoteIndex}
-    notes ={ this.state.notes}
+      notes ={ this.state.notes}
+      deleteNote={this.deleteNote}
+      selectNote={this.selectNote}
+      newNote={this.newNote}
     />
-    <EditorComponent />
+   {
+     this.state.selectedNote ?
+     <EditorComponent
+              selectedNote={this.state.selectedNote}
+              selectedNoteIndex={this.state.selectedNoteIndex}
+              notes={this.state.notes}
+              noteUpdate={this.noteUpdate}
+     
+     />:null
+   }
     </div>)
   }
 

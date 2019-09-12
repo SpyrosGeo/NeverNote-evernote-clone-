@@ -20,10 +20,29 @@ class EditorComponent extends React.Component{
             this.update(); 
         }
         update = debounce(()=>{
-            //TODO
-            console.log('updating Database');
+           this.props.noteUpdate(this.state.id,{
+               title:this.state.title,
+               body:this.state.text
+            });
         },1500);
         
+        componentDidMount =()=>{
+            this.setState({
+                text:this.props.selectedNote.body,
+                title: this.props.selectedNote.title,
+                id:this.props.selectedNote.id
+            })
+        }
+
+        componentDidUpdate(){
+            if(this.props.selectedNote.id !==this.state.id){
+                this.setState({
+                    text: this.props.selectedNote.body,
+                    title: this.props.selectedNote.title,
+                    id: this.props.selectedNote.id
+                })
+            }
+        }
     render(){
         const { classes } = this.props;
         return (

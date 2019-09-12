@@ -35,12 +35,12 @@ class SidebarComponent extends React.Component{
     }
 
 
-    selectNote(){
-         console.log("select Note");
+    selectNote(n,i){
+         this.props.selectNote(n,i)
     }
 
     deleteNote(){
-        
+        console.log("deleted note");
     }
 
     render() {
