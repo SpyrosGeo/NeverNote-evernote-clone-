@@ -1,8 +1,17 @@
 import React from 'react';
 import './App.css';
 
+const firebase = require('firebase');
 
 class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.state ={
+      selectedNoteIndex:null,
+      selectedNote:null,
+      notes:null
+    }
+  }
   render(){
     return (
     <div>
@@ -10,7 +19,22 @@ class App extends React.Component {
     </div>)
   }
 
-
+  componentDidMount = () =>{
+    firebase
+    .firestore()
+    .collection('notes')
+    .onSnapshot(serverUpdate =>{
+      const notes = serverUpdate.docs.map(_doc =>{
+        const data = _doc.data();
+        data['id'] =_doc.id;
+        return data;
+      });
+      console.log('====================================');
+      console.log(notes);
+      console.log('====================================');
+      this.setState({notes:notes});
+    });
+  }
 
 }
 
